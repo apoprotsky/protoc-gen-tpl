@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/apoprotsky/prototpl/internal/command"
+	"github.com/apoprotsky/proto-gen-tpl/internal/command"
 )
 
 func main() {

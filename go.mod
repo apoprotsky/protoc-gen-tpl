@@ -1,4 +1,4 @@
-module github.com/apoprotsky/prototpl
+module github.com/apoprotsky/proto-gen-tpl
 
 go 1.16
 

@@ -1,4 +1,4 @@
-.PHONY: help all tidy build run clean
+.PHONY: help all tidy build link run clean
 
 help:
 	@echo "Usage:\n\
@@ -17,16 +17,19 @@ tidy:
 	@go mod tidy
 
 build:
-	@go build -buildmode=default -ldflags="-s -w" -trimpath -o dist/protoc-gen-tpl cmd/protoc-gen-tpl/*.go
+	@go build -buildmode=default -ldflags="-s -w" -trimpath .
+
+link:
+	@ln -s protoc-gen-tpl /usr/local/bin/
 
 run:
 	@rm -rf examples/out
 	@mkdir examples/out
 	@protoc \
 		--tpl_out=examples/out \
-		--tpl_opt=module=github.com/apoprotsky/prototpl/examples/ \
+		--tpl_opt=module=github.com/apoprotsky/proto-get-tpl/examples/ \
 		examples/proto/*.proto \
 
 clean:
 	@rm -rf examples/out
-	@rm dist/protoc-gen-tpl
+	@rm protoc-gen-tpl

@@ -5,8 +5,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/apoprotsky/prototpl/internal/generators/golang/types"
-	"github.com/apoprotsky/prototpl/internal/str"
+	"github.com/apoprotsky/proto-gen-tpl/internal/generators/golang/types"
+	"github.com/apoprotsky/proto-gen-tpl/internal/str"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"

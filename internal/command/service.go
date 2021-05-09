@@ -4,7 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/apoprotsky/prototpl/internal/app"
+	"github.com/apoprotsky/proto-gen-tpl/internal/app"
 
 	gs "github.com/apoprotsky/go-services"
 	"github.com/spf13/cobra"

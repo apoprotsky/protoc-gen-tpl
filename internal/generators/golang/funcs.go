@@ -5,7 +5,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/apoprotsky/prototpl/internal/str"
+	"github.com/apoprotsky/proto-gen-tpl/internal/str"
 )
 
 var funcs = template.FuncMap{
