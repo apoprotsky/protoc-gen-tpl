@@ -22,7 +22,7 @@ brew install protobuf
 
 ## Installation
 
-Install `protoc-gen-tpl` plugin using (go)[https://golang.org]
+Install `protoc-gen-tpl` plugin using [go](https://golang.org)
 ```
 go get github.com/apoprotsky/protoc-gen-tpl
 ```
@@ -48,7 +48,7 @@ Parameters `module` has [same behaviour](https://developers.google.com/protocol-
     - [ ] Generate custom tags
   - [ ] Generate types from enumerations
   - [ ] Generate constants from enumerations
-  - Supported struct fields types:
+  - [ ] Supported struct fields types:
     - [x] Scalar types (string, numbers)
     - [x] Arrays
     - [ ] Pointer to generated from message type
@@ -56,7 +56,7 @@ Parameters `module` has [same behaviour](https://developers.google.com/protocol-
 - [ ] Typescript support
   - [ ] Generate `ts` files from `proto` files
   - [ ] Generate interfaces from messages
-  - Supported interfaces fields types:
+  - [ ] Supported interfaces fields types:
     - [ ] Scalar types (string, numbers)
     - [ ] Arrays
     - [ ] Generated from message type
