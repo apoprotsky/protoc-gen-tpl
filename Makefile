@@ -27,7 +27,7 @@ run:
 	@mkdir examples/out
 	@protoc \
 		--tpl_out=examples/out \
-		--tpl_opt=module=github.com/apoprotsky/proto-get-tpl/examples/ \
+		--tpl_opt=module=github.com/apoprotsky/protoc-get-tpl/examples/ \
 		examples/proto/*.proto \
 
 clean:

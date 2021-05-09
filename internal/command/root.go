@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/apoprotsky/proto-gen-tpl/internal/generators/golang"
+	"github.com/apoprotsky/protoc-gen-tpl/internal/generators/golang"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/proto"

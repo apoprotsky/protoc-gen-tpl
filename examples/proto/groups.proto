@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package projects;
 
-option go_package = "github.com/apoprotsky/prototpl/examples/api/groups";
+option go_package = "github.com/apoprotsky/protoc-gen-tpl/examples/api/groups";
 
 message GroupsGet {
     uint32 id = 1;

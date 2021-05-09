@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package users;
 
-option go_package = "github.com/apoprotsky/prototpl/examples/api/users";
+option go_package = "github.com/apoprotsky/protoc-gen-tpl/examples/api/users";
 
 message UsersGet {
     uint32 id = 1;

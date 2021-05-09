@@ -1,8 +1,8 @@
-# prototpl
+# protoc-gen-tpl
 
 ## Overview
 
-`prototpl` is a plugin for protobuf compilator (`protoc`) which allows to generate files using custom templates and rules.
+`protoc-gen-tpl` is a plugin for protobuf compilator (`protoc`) which allows to generate files using custom templates and rules.
 
 Now only default template for go is supported. Also only go structs are generated.
 
@@ -24,7 +24,7 @@ brew install protobuf
 
 Install `protoc-gen-tpl` plugin using (go)[https://golang.org]
 ```
-go get github.com/apoprotsky/proto-gen-tpl
+go get github.com/apoprotsky/protoc-gen-tpl
 ```
 
 ## How to use
@@ -33,7 +33,7 @@ Example how to generate go code from your proto files
 ```sh
 protoc \
     --tpl_out=examples/out \
-    --tpl_opt=module=github.com/apoprotsky/prototpl/examples/ \
+    --tpl_opt=module=github.com/apoprotsky/protoc-gen-tpl/examples/ \
     examples/proto/*.proto \
 ```
 Parameters `module` has [same behaviour](https://developers.google.com/protocol-buffers/docs/reference/go-generated#invocation) as for go plugin
