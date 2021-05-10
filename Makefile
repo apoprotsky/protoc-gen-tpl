@@ -20,7 +20,7 @@ build:
 	@go build -buildmode=default -ldflags="-s -w" -trimpath .
 
 link:
-	@ln -s protoc-gen-tpl /usr/local/bin/
+	@ln -s $$(pwd)/protoc-gen-tpl /usr/local/bin/
 
 run:
 	@rm -rf examples/out

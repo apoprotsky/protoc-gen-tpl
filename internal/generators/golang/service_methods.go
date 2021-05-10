@@ -1,83 +1,33 @@
 package golang
 
 import (
-	"bytes"
-	"strings"
-	"text/template"
-
-	"github.com/apoprotsky/protoc-gen-tpl/internal/generators/golang/types"
-	"github.com/apoprotsky/protoc-gen-tpl/internal/str"
+	"github.com/apoprotsky/protoc-gen-tpl/internal/generator/messages"
+	"github.com/apoprotsky/protoc-gen-tpl/internal/template"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
-	"google.golang.org/protobuf/proto"
-	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-func (svc *Service) GenerateCode(request *plugin.CodeGeneratorRequest) proto.Message {
+func (svc *Service) GenerateFiles(request *plugin.CodeGeneratorRequest, messages []*messages.Model) []*plugin.CodeGeneratorResponse_File {
+	files := map[string]*plugin.CodeGeneratorResponse_File{}
+	messagesByFiles := map[string]*model{}
 
-	module := getModuleFromParameter(request.GetParameter())
-
-	var responce plugin.CodeGeneratorResponse
-	responce.File = []*plugin.CodeGeneratorResponse_File{}
-
-	for index, filename := range request.FileToGenerate {
-		print(filename, " > ")
-		filename = str.LastPart(filename, "/")
-		protoFile := request.ProtoFile[index]
-		go_package := protoFile.GetOptions().GetGoPackage()
-
-		ourDirName := getFileDirectory(go_package, module)
-		outFileName := ourDirName + strings.Replace(filename, ".proto", ".go", -1)
-		println(ourDirName, "; ", outFileName)
-
-		var outFile plugin.CodeGeneratorResponse_File
-		outFile.Name = &outFileName
-
-		goFile := types.File{
-			Package: getPackageName(go_package),
-			Structs: []types.Struct{},
-		}
-
-		protoMessages := protoFile.MessageType
-		for _, protoMessage := range protoMessages {
-
-			goStruct := types.Struct{
-				Name:               protoMessage.GetName(),
-				Fields:             []types.Field{},
-				MaxFieldNameLength: 0,
+	for _, message := range messages {
+		if _, ok := files[message.GoFile]; !ok {
+			name := message.GoFile
+			files[message.GoFile] = &plugin.CodeGeneratorResponse_File{
+				Name: &name,
 			}
-
-			protoFields := protoMessage.GetField()
-			for _, protoField := range protoFields {
-
-				goField := types.Field{
-					Name:      strings.Title(strings.ToLower(protoField.GetName())),
-					Type:      types.GetType(protoField.GetType()),
-					IsArray:   protoField.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
-					IsPointer: protoField.GetType() == descriptorpb.FieldDescriptorProto_TYPE_MESSAGE,
-					Tags:      []types.Tag{},
-				}
-
-				goField.Tags = append(goField.Tags, types.Tag{Name: "json", Value: protoField.GetJsonName()})
-
-				goStruct.Fields = append(goStruct.Fields, goField)
-				if len(goField.Name) > goStruct.MaxFieldNameLength {
-					goStruct.MaxFieldNameLength = len(goField.Name)
-				}
-
-			}
-
-			goFile.Structs = append(goFile.Structs, goStruct)
+			messagesByFiles[message.GoFile] = newModel(message.GoPackage, message.GoMax)
 		}
-
-		tmpl := template.Must(template.New("go").Funcs(funcs).Parse(defaultTemplate))
-		var buffer bytes.Buffer
-		tmpl.Execute(&buffer, &goFile)
-		content := buffer.String()
-
-		outFile.Content = &content
-		responce.File = append(responce.File, &outFile)
+		messagesByFiles[message.GoFile].addMessage(message)
 	}
 
-	return &responce
+	templateService := template.GetService()
 
+	result := []*plugin.CodeGeneratorResponse_File{}
+	for _, file := range files {
+		content := templateService.ExecuteTemplate(template.DefaultGoTemplate, messagesByFiles[file.GetName()])
+		file.Content = &content
+		result = append(result, file)
+	}
+	return result
 }

@@ -1,5 +1,7 @@
 # protoc-gen-tpl
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/apoprotsky/protoc-gen-tpl)](https://goreportcard.com/report/github.com/apoprotsky/protoc-gen-tpl)
+
 ## Overview
 
 `protoc-gen-tpl` is a plugin for protobuf compilator (`protoc`) which allows to generate files using custom templates and rules.
@@ -29,21 +31,22 @@ go get github.com/apoprotsky/protoc-gen-tpl
 
 ## How to use
 
-Example how to generate go code from your proto files
+Example how to generate go code from proto files
 ```sh
+mkdir examples/out
 protoc \
-    --tpl_out=examples/out \
-    --tpl_opt=module=github.com/apoprotsky/protoc-gen-tpl/examples/ \
-    examples/proto/*.proto \
+  --tpl_out=examples/out \
+  --tpl_opt=prefix=github.com/apoprotsky/protoc-gen-tpl/examples/ \
+  examples/proto/*.proto
 ```
-Parameters `module` has [same behaviour](https://developers.google.com/protocol-buffers/docs/reference/go-generated#invocation) as for go plugin
+Parameters `prefix` has [same behaviour](https://developers.google.com/protocol-buffers/docs/reference/go-generated#invocation) as `module=$PREFIX` for go plugin
 
 ## Roadmap
 
 - [ ] Go support
   - [x] Generate `go` files from `proto` files
   - [x] Generate structs types from messages
-  - [ ] Generate structs fields tags
+  - [ ] Generate struct fields tags
     - [x] Generate json tags
     - [ ] Generate custom tags
   - [ ] Generate types from enumerations
@@ -56,7 +59,7 @@ Parameters `module` has [same behaviour](https://developers.google.com/protocol-
 - [ ] Typescript support
   - [ ] Generate `ts` files from `proto` files
   - [ ] Generate interfaces from messages
-  - [ ] Supported interfaces fields types:
+  - [ ] Supported interface fields types:
     - [ ] Scalar types (string, numbers)
     - [ ] Arrays
     - [ ] Generated from message type

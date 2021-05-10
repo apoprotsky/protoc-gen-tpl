@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/apoprotsky/protoc-gen-tpl/internal/generators/golang"
+	"github.com/apoprotsky/protoc-gen-tpl/internal/generator"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/proto"
@@ -27,8 +27,8 @@ func rootCommand(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	golangService := golang.GetService()
-	responce := golangService.GenerateCode(request)
+	generatorService := generator.GetService()
+	responce := generatorService.GenerateCode(request)
 
 	marshalled, err := proto.Marshal(responce)
 	if err != nil {
