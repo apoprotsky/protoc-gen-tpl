@@ -6,6 +6,7 @@ import (
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 )
 
+// GenerateFiles generates go files content
 func (svc *Service) GenerateFiles(request *plugin.CodeGeneratorRequest, messages []*messages.Model) []*plugin.CodeGeneratorResponse_File {
 	files := map[string]*plugin.CodeGeneratorResponse_File{}
 	messagesByFiles := map[string]*model{}

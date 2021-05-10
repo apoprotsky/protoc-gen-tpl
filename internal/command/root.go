@@ -28,9 +28,9 @@ func rootCommand(cmd *cobra.Command, args []string) {
 	}
 
 	generatorService := generator.GetService()
-	responce := generatorService.GenerateCode(request)
+	response := generatorService.GenerateCode(request)
 
-	marshalled, err := proto.Marshal(responce)
+	marshalled, err := proto.Marshal(response)
 	if err != nil {
 		panic(err)
 	}

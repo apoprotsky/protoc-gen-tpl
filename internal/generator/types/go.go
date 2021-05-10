@@ -6,6 +6,7 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
+// Type alias
 type Type string
 
 const (
@@ -21,7 +22,7 @@ const (
 	// GoEnum Type = "enum"
 )
 
-var GoTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
+var goTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
 	descriptorpb.FieldDescriptorProto_TYPE_DOUBLE:   GoFloat64,
 	descriptorpb.FieldDescriptorProto_TYPE_FLOAT:    GoFloat32,
 	descriptorpb.FieldDescriptorProto_TYPE_INT64:    GoInt64,
@@ -39,8 +40,9 @@ var GoTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
 	descriptorpb.FieldDescriptorProto_TYPE_BYTES:    GoString,
 }
 
+// GetGoType returns golang type by protobuf type
 func GetGoType(fieldType descriptorpb.FieldDescriptorProto_Type) Type {
-	value, ok := GoTypes[fieldType]
+	value, ok := goTypes[fieldType]
 	if !ok {
 		panic(errors.New("unknown or unsupported field type: " + fieldType.String()))
 	}

@@ -5,6 +5,7 @@ import (
 	"github.com/apoprotsky/protoc-gen-tpl/internal/generator/types"
 )
 
+// Model of field
 type Model struct {
 	GoName      string
 	GoIsArray   bool
