@@ -54,16 +54,18 @@ Parameters `prefix` has [same behaviour](https://developers.google.com/protocol-
   - [ ] Supported struct fields types:
     - [x] Scalar types (string, numbers)
     - [x] Arrays
-    - [ ] Pointer to generated from message type
-    - [ ] Generated from enumeration type
+    - [ ] Message type
+    - [ ] Enumeration type
 - [ ] Typescript support
-  - [ ] Generate `ts` files from `proto` files
-  - [ ] Generate interfaces from messages
+  - [x] Generate `ts` files from `proto` files
+  - [x] Generate interfaces from messages
+  - [ ] Generate enumerations
   - [ ] Supported interface fields types:
-    - [ ] Scalar types (string, numbers)
+    - [x] Scalar types (string, boolean, number, bigint)
     - [ ] Arrays
-    - [ ] Generated from message type
-    - [ ] Generated from enumeration type
+    - [ ] Message type
+    - [ ] Enumeration type
 - [ ] PHP support
   - [ ] Generate `php` files from `proto` files
   - [ ] Generate classes from messages
+  - [ ] Generate constants from enumerations
