@@ -17,6 +17,9 @@ func (svc *Service) GoService() {
 		DefaultGoTemplate: template.Must(
 			template.New(DefaultGoTemplate).Funcs(funcs).Parse(defaultGoTemplate),
 		),
+		DefaultTypescriptTemplate: template.Must(
+			template.New(DefaultTypescriptTemplate).Funcs(funcs).Parse(defaultTypescriptTemplate),
+		),
 	}
 }
 
