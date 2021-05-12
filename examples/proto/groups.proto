@@ -1,14 +1,19 @@
 syntax = "proto3";
 
-package projects;
+package web.api;
 
 option go_package = "github.com/apoprotsky/protoc-gen-tpl/examples/api/groups";
 
-message GroupsGet {
+message Group {
     uint32 id = 1;
     string name = 2;
 }
 
-message GroupsPost {
+message GroupsPostRequest {
     string name = 1;
+}
+
+message GroupsPostResponse {
+    uint32 id = 1;
+    string name = 2;
 }

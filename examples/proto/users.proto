@@ -1,16 +1,22 @@
 syntax = "proto3";
 
-package users;
+package web.api;
 
 option go_package = "github.com/apoprotsky/protoc-gen-tpl/examples/api/users";
 
-message UsersGet {
+message User {
     uint32 id = 1;
     string email = 2;
     repeated uint32 groups = 3;
 }
 
-message UsersPost {
+message UsersPostRequest {
     string email = 1;
     string password = 2;
+}
+
+message UsersPostResponse {
+    uint32 id = 1;
+    string email = 2;
+    repeated uint32 groups = 3;
 }
