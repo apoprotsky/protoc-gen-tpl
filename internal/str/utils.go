@@ -2,7 +2,7 @@ package str
 
 import "strings"
 
-func ArrayTitle(strs []string) []string {
+func arrayTitle(strs []string) []string {
 	for index, str := range strs {
 		strs[index] = strings.Title(str)
 	}

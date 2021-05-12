@@ -12,6 +12,7 @@ func (svc *Service) Execute() {
 	}
 }
 
+// NeedHelp flag
 func (svc *Service) NeedHelp() bool {
 	return svc.help
 }

@@ -8,7 +8,7 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-// GenerateCode creates responce for protoc
+// GenerateCode creates response for protoc
 func (svc *Service) GenerateCode(request *plugin.CodeGeneratorRequest) proto.Message {
 	messages := genMessagesFromRequest(request)
 

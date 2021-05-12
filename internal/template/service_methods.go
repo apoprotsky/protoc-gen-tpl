@@ -6,6 +6,7 @@ import (
 	"text/template"
 )
 
+// ExecuteTemplate by name
 func (svc *Service) ExecuteTemplate(name string, data interface{}) string {
 	tmpl := svc.getTemplate(name)
 	var buffer bytes.Buffer

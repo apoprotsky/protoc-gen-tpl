@@ -7,11 +7,16 @@ import (
 )
 
 const (
-	TypescriptBigint  Type = "bigint"
-	TypescriptNumber  Type = "number"
+	// TypescriptBigint bigint type
+	TypescriptBigint Type = "bigint"
+	// TypescriptNumber number type
+	TypescriptNumber Type = "number"
+	// TypescriptBoolean boolean type
 	TypescriptBoolean Type = "boolean"
-	TypescriptString  Type = "string"
-	TypescriptEnum    Type = "enum"
+	// TypescriptString string type
+	TypescriptString Type = "string"
+	// TypescriptEnum enum type
+	TypescriptEnum Type = "enum"
 )
 
 var typescriptTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{

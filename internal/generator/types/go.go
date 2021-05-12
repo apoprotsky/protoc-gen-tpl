@@ -7,16 +7,22 @@ import (
 )
 
 const (
+	// GoFloat64 float64 type
 	GoFloat64 Type = "float64"
+	// GoFloat32 float32 type
 	GoFloat32 Type = "float32"
-	GoInt64   Type = "int64"
-	GoUInt64  Type = "uint64"
-	GoInt32   Type = "int32"
-	GoUInt32  Type = "uint32"
-	GoBool    Type = "bool"
-	GoString  Type = "string"
-	// GoMessage Type = "message"
-	// GoEnum Type = "enum"
+	// GoInt64 int64 type
+	GoInt64 Type = "int64"
+	// GoUInt64 uint64 type
+	GoUInt64 Type = "uint64"
+	// GoInt32 int32 type
+	GoInt32 Type = "int32"
+	// GoUInt32 uint32 type
+	GoUInt32 Type = "uint32"
+	// GoBool bool type
+	GoBool Type = "bool"
+	// GoString string type
+	GoString Type = "string"
 )
 
 var goTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
