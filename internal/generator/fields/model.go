@@ -7,9 +7,11 @@ import (
 
 // Model of field
 type Model struct {
-	GoName      string
-	GoIsArray   bool
-	GoIsPointer bool
-	GoType      types.Type
-	GoTags      []*tags.Model
+	GoName         string
+	GoIsArray      bool
+	GoIsPointer    bool
+	GoType         types.Type
+	GoTags         []*tags.Model
+	TypescriptName string
+	TypescriptType types.Type
 }

@@ -6,10 +6,12 @@ import (
 
 // Model of message
 type Model struct {
-	ProtoFile string
-	GoFile    string
-	GoPackage string
-	Name      string
-	Fields    []*fields.Model
-	GoMax     int
+	ProtoFile         string
+	GoFile            string
+	GoPackage         string
+	TypescriptFile    string
+	TypescriptPackage string
+	Name              string
+	Fields            []*fields.Model
+	GoMax             int
 }

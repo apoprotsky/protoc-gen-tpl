@@ -1,4 +1,4 @@
-package golang
+package typescript
 
 import (
 	"github.com/apoprotsky/protoc-gen-tpl/internal/generator/messages"
@@ -6,7 +6,7 @@ import (
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 )
 
-// GenerateFiles generates go files content
+// GenerateFiles generates typescript files content
 func (svc *Service) GenerateFiles(
 	request *plugin.CodeGeneratorRequest,
 	messages []*messages.Model,
@@ -15,21 +15,24 @@ func (svc *Service) GenerateFiles(
 	messagesByFiles := map[string]*model{}
 
 	for _, message := range messages {
-		if _, ok := files[message.GoFile]; !ok {
-			name := message.GoFile
-			files[message.GoFile] = &plugin.CodeGeneratorResponse_File{
+		if _, ok := files[message.TypescriptFile]; !ok {
+			name := message.TypescriptFile
+			files[message.TypescriptFile] = &plugin.CodeGeneratorResponse_File{
 				Name: &name,
 			}
-			messagesByFiles[message.GoFile] = newModel(message.GoPackage, message.GoMax)
+			messagesByFiles[message.TypescriptFile] = newModel()
 		}
-		messagesByFiles[message.GoFile].addMessage(message)
+		messagesByFiles[message.TypescriptFile].addMessage(message)
 	}
 
 	templateService := template.GetService()
 
 	result := []*plugin.CodeGeneratorResponse_File{}
 	for _, file := range files {
-		content := templateService.ExecuteTemplate(template.DefaultGoTemplate, messagesByFiles[file.GetName()])
+		content := templateService.ExecuteTemplate(
+			template.DefaultTypescriptTemplate,
+			messagesByFiles[file.GetName()],
+		)
 		file.Content = &content
 		result = append(result, file)
 	}

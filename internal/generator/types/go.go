@@ -1,13 +1,10 @@
 package types
 
 import (
-	"errors"
+	"os"
 
 	"google.golang.org/protobuf/types/descriptorpb"
 )
-
-// Type alias
-type Type string
 
 const (
 	GoFloat64 Type = "float64"
@@ -44,7 +41,8 @@ var goTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
 func GetGoType(fieldType descriptorpb.FieldDescriptorProto_Type) Type {
 	value, ok := goTypes[fieldType]
 	if !ok {
-		panic(errors.New("unknown or unsupported field type: " + fieldType.String()))
+		println("go: unknown or unsupported field type: " + fieldType.String())
+		os.Exit(1)
 	}
 	return value
 }

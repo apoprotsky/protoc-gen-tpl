@@ -23,24 +23,6 @@ func getPrefixFromParameter(parameter string) string {
 	return ""
 }
 
-func getGoFileDirectory(go_package string, module string) string {
-	path := strings.Split(go_package, ";")[0]
-	path = strings.TrimPrefix(path, module)
-	path = strings.TrimPrefix(path, "/")
-	if path != "" {
-		path += "/"
-	}
-	return path
-}
-
-func getGoPackageName(go_package string) string {
-	tmp := strings.Split(go_package, ";")
-	if len(tmp) > 1 {
-		return tmp[1]
-	}
-	return str.LastPart(tmp[0], "/")
-}
-
 func genMessagesFromRequest(request *plugin.CodeGeneratorRequest) []*messages.Model {
 	messages := []*messages.Model{}
 	prefix := getPrefixFromParameter(request.GetParameter())
@@ -48,16 +30,22 @@ func genMessagesFromRequest(request *plugin.CodeGeneratorRequest) []*messages.Mo
 		protoFile := request.ProtoFile[index]
 		filename = str.LastPart(filename, "/")
 		// go
-		go_package := protoFile.GetOptions().GetGoPackage()
-		goDir := getGoFileDirectory(go_package, prefix)
+		goDir := getGoFileDirectory(protoFile, prefix)
 		goFile := goDir + strings.Replace(filename, ".proto", ".go", -1)
+		goPackage := getGoPackageName(protoFile)
+		// typescript
+		typescriptDir := getTypescriptFileDirectory(protoFile, prefix)
+		typescriptFile := typescriptDir + strings.Replace(filename, ".proto", ".ts", -1)
+		typescriptPackage := getTypescriptPackageName(protoFile)
 		// Get messages information
 		protoMessages := protoFile.MessageType
 		for _, protoMessage := range protoMessages {
 			genMessage := genMessageFromProtoMessage(protoMessage)
 			genMessage.ProtoFile = protoFile.GetName()
 			genMessage.GoFile = goFile
-			genMessage.GoPackage = getGoPackageName(go_package)
+			genMessage.GoPackage = goPackage
+			genMessage.TypescriptFile = typescriptFile
+			genMessage.TypescriptPackage = typescriptPackage
 			messages = append(messages, genMessage)
 		}
 	}
@@ -66,7 +54,7 @@ func genMessagesFromRequest(request *plugin.CodeGeneratorRequest) []*messages.Mo
 
 func genMessageFromProtoMessage(protoMessage *descriptorpb.DescriptorProto) *messages.Model {
 	genMessage := messages.Model{
-		Name:   protoMessage.GetName(),
+		Name:   str.ToUpperCamelCase(protoMessage.GetName()),
 		Fields: []*fields.Model{},
 		GoMax:  0,
 	}
@@ -91,11 +79,13 @@ func genFieldsFromProtoFields(protoFields []*descriptorpb.FieldDescriptorProto) 
 
 func genFieldFromProtoField(protoField *descriptorpb.FieldDescriptorProto) *fields.Model {
 	genField := fields.Model{
-		GoName:      strings.Title(strings.ToLower(protoField.GetName())),
-		GoIsArray:   protoField.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
-		GoIsPointer: protoField.GetType() == descriptorpb.FieldDescriptorProto_TYPE_MESSAGE,
-		GoType:      types.GetGoType(protoField.GetType()),
-		GoTags:      []*tags.Model{},
+		GoName:         str.ToUpperCamelCase(protoField.GetName()),
+		GoIsArray:      protoField.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
+		GoIsPointer:    protoField.GetType() == descriptorpb.FieldDescriptorProto_TYPE_MESSAGE,
+		GoType:         types.GetGoType(protoField.GetType()),
+		GoTags:         []*tags.Model{},
+		TypescriptName: str.ToLowerCamelCase(protoField.GetName()),
+		TypescriptType: types.GettypescriptType(protoField.GetType()),
 	}
 	genField.GoTags = append(genField.GoTags, &tags.Model{Name: "json", Value: protoField.GetJsonName()})
 	return &genField
