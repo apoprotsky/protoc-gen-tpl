@@ -5,10 +5,15 @@ import (
 )
 
 // Service struct
-type Service struct{}
+type Service struct {
+	golang     bool
+	typescript bool
+	php        bool
+}
 
 // GoService initializes service
-func (svc *Service) GoService() {}
+func (svc *Service) GoService() {
+}
 
 // GetService returns instance of service
 func GetService() *Service {

@@ -37,13 +37,18 @@ mkdir examples/out
 protoc \
   --tpl_out=examples/out \
   --tpl_opt=prefix=github.com/apoprotsky/protoc-gen-tpl/examples/ \
+  --tpl_opt=lang=go \
+  --tpl_opt=lang=ts \
+  --tpl_opt=lang=php \
   examples/proto/*.proto
 ```
-Parameters `prefix` has [same behaviour](https://developers.google.com/protocol-buffers/docs/reference/go-generated#invocation) as `module=$PREFIX` for go plugin
+Option `prefix` has [same behaviour](https://developers.google.com/protocol-buffers/docs/reference/go-generated#invocation) as `module=$PREFIX` for go plugin.
+
+Option `lang` designates which languages to use for output files. This option can be specified multiple times.
 
 ## Checklist
 
-### Go support
+### Go
 
 - [x] Generate `go` files from `proto` files
 - [x] Generate structs types from messages
@@ -58,7 +63,7 @@ Parameters `prefix` has [same behaviour](https://developers.google.com/protocol-
   - [ ] Message type
   - [ ] Enumeration type
 
-### Typescript support
+### Typescript
 
 - [x] Generate `ts` files from `proto` files
 - [x] Generate interfaces from messages
@@ -69,7 +74,7 @@ Parameters `prefix` has [same behaviour](https://developers.google.com/protocol-
   - [ ] Message type
   - [ ] Enumeration type
 
-### PHP support
+### PHP
 
 - [x] Generate `php` files from `proto` files
 - [x] Generate classes from messages

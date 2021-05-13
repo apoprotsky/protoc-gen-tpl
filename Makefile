@@ -28,6 +28,9 @@ run:
 	@protoc \
 		--tpl_out=examples/out \
 		--tpl_opt=prefix=github.com/apoprotsky/protoc-gen-tpl/examples/ \
+		--tpl_opt=lang=go \
+		--tpl_opt=lang=ts \
+		--tpl_opt=lang=php \
 		examples/proto/*.proto \
 
 clean:
