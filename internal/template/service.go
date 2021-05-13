@@ -20,6 +20,9 @@ func (svc *Service) GoService() {
 		DefaultTypescriptTemplate: template.Must(
 			template.New(DefaultTypescriptTemplate).Funcs(funcs).Parse(defaultTypescriptTemplate),
 		),
+		DefaultPhpTemplate: template.Must(
+			template.New(DefaultPhpTemplate).Funcs(funcs).Parse(defaultPhpTemplate),
+		),
 	}
 }
 

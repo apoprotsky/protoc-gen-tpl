@@ -11,6 +11,8 @@ type Model struct {
 	GoPackage         string
 	TypescriptFile    string
 	TypescriptPackage string
+	PhpFile           string
+	PhpPackage        string
 	Name              string
 	Fields            []*fields.Model
 	GoMax             int

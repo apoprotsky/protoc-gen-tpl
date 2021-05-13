@@ -14,4 +14,6 @@ type Model struct {
 	GoTags         []*tags.Model
 	TypescriptName string
 	TypescriptType types.Type
+	PhpName        string
+	PhpType        types.Type
 }

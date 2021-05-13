@@ -6,7 +6,7 @@
 
 `protoc-gen-tpl` is a plugin for protobuf compilator (`protoc`) which allows to generate files using custom templates and rules.
 
-Now only default template for go is supported. Also only go structs are generated.
+See in [checklist](#checklist) implemented and planned features.
 
 ## Prerequisites
 
@@ -41,31 +41,36 @@ protoc \
 ```
 Parameters `prefix` has [same behaviour](https://developers.google.com/protocol-buffers/docs/reference/go-generated#invocation) as `module=$PREFIX` for go plugin
 
-## Roadmap
+## Checklist
 
-- [ ] Go support
-  - [x] Generate `go` files from `proto` files
-  - [x] Generate structs types from messages
-  - [ ] Generate struct fields tags
-    - [x] Generate json tags
-    - [ ] Generate custom tags
-  - [ ] Generate types from enumerations
-  - [ ] Generate constants from enumerations
-  - [ ] Supported struct fields types:
-    - [x] Scalar types (string, numbers)
-    - [x] Arrays
-    - [ ] Message type
-    - [ ] Enumeration type
-- [ ] Typescript support
-  - [x] Generate `ts` files from `proto` files
-  - [x] Generate interfaces from messages
-  - [ ] Generate enumerations
-  - [ ] Supported interface fields types:
-    - [x] Scalar types (string, boolean, number, bigint)
-    - [ ] Arrays
-    - [ ] Message type
-    - [ ] Enumeration type
-- [ ] PHP support
-  - [ ] Generate `php` files from `proto` files
-  - [ ] Generate classes from messages
-  - [ ] Generate constants from enumerations
+### Go support
+
+- [x] Generate `go` files from `proto` files
+- [x] Generate structs types from messages
+- [ ] Generate struct fields tags
+  - [x] Generate json tags
+  - [ ] Generate custom tags
+- [ ] Generate types from enumerations
+- [ ] Generate constants from enumerations
+- [ ] Supported struct fields types:
+  - [x] Scalar types (string, numbers)
+  - [x] Arrays
+  - [ ] Message type
+  - [ ] Enumeration type
+
+### Typescript support
+
+- [x] Generate `ts` files from `proto` files
+- [x] Generate interfaces from messages
+- [ ] Generate enumerations
+- [ ] Supported interface fields types:
+  - [x] Scalar types (string, boolean, number, bigint)
+  - [ ] Arrays
+  - [ ] Message type
+  - [ ] Enumeration type
+
+### PHP support
+
+- [x] Generate `php` files from `proto` files
+- [x] Generate classes from messages
+- [ ] Generate constants from enumerations

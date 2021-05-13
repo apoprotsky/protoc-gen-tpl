@@ -37,6 +37,9 @@ func genMessagesFromRequest(request *plugin.CodeGeneratorRequest) []*messages.Mo
 		typescriptDir := getTypescriptFileDirectory(protoFile, prefix)
 		typescriptFile := typescriptDir + strings.Replace(filename, ".proto", ".ts", -1)
 		typescriptPackage := getTypescriptPackageName(protoFile)
+		// php
+		phpDir := getPhpFileDirectory(protoFile, prefix)
+		phpPackage := getPhpPackageName(protoFile)
 		// Get messages information
 		protoMessages := protoFile.MessageType
 		for _, protoMessage := range protoMessages {
@@ -46,6 +49,8 @@ func genMessagesFromRequest(request *plugin.CodeGeneratorRequest) []*messages.Mo
 			genMessage.GoPackage = goPackage
 			genMessage.TypescriptFile = typescriptFile
 			genMessage.TypescriptPackage = typescriptPackage
+			genMessage.PhpFile = phpDir + genMessage.Name + ".php"
+			genMessage.PhpPackage = phpPackage
 			messages = append(messages, genMessage)
 		}
 	}
@@ -85,7 +90,9 @@ func genFieldFromProtoField(protoField *descriptorpb.FieldDescriptorProto) *fiel
 		GoType:         types.GetGoType(protoField.GetType()),
 		GoTags:         []*tags.Model{},
 		TypescriptName: str.ToLowerCamelCase(protoField.GetName()),
-		TypescriptType: types.GettypescriptType(protoField.GetType()),
+		TypescriptType: types.GetTypescriptType(protoField.GetType()),
+		PhpName:        str.ToLowerCamelCase(protoField.GetName()),
+		PhpType:        types.GetPhpType(protoField.GetType()),
 	}
 	genField.GoTags = append(genField.GoTags, &tags.Model{Name: "json", Value: protoField.GetJsonName()})
 	return &genField

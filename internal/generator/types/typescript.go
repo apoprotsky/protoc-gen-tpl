@@ -38,8 +38,8 @@ var typescriptTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
 	descriptorpb.FieldDescriptorProto_TYPE_ENUM:     TypescriptEnum,
 }
 
-// GettypescriptType returns typescript type by protobuf type
-func GettypescriptType(fieldType descriptorpb.FieldDescriptorProto_Type) Type {
+// GetTypescriptType returns typescript type by protobuf type
+func GetTypescriptType(fieldType descriptorpb.FieldDescriptorProto_Type) Type {
 	value, ok := typescriptTypes[fieldType]
 	if !ok {
 		println("typescript: unknown or unsupported field type: " + fieldType.String())

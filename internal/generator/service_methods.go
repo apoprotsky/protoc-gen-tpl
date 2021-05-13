@@ -2,6 +2,7 @@ package generator
 
 import (
 	"github.com/apoprotsky/protoc-gen-tpl/internal/generators/golang"
+	"github.com/apoprotsky/protoc-gen-tpl/internal/generators/php"
 	"github.com/apoprotsky/protoc-gen-tpl/internal/generators/typescript"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"google.golang.org/protobuf/proto"
@@ -19,6 +20,9 @@ func (svc *Service) GenerateCode(request *plugin.CodeGeneratorRequest) proto.Mes
 
 	typescriptService := typescript.GetService()
 	files = append(files, typescriptService.GenerateFiles(request, messages)...)
+
+	phpService := php.GetService()
+	files = append(files, phpService.GenerateFiles(request, messages)...)
 
 	return &plugin.CodeGeneratorResponse{File: files}
 }
