@@ -37,7 +37,6 @@ func (svc *Service) GenerateCode(request *plugin.CodeGeneratorRequest) proto.Mes
 }
 
 func (svc *Service) getLanguagesFromParameter(parameter string) {
-	println(parameter)
 	options := strings.Split(parameter, ",")
 	for _, option := range options {
 		tmp := strings.Split(option, "=")
