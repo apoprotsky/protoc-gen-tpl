@@ -3,21 +3,21 @@ package golang
 import (
 	"github.com/apoprotsky/protoc-gen-tpl/internal/generator/messages"
 	"github.com/apoprotsky/protoc-gen-tpl/internal/template"
-	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
+	"google.golang.org/protobuf/types/pluginpb"
 )
 
 // GenerateFiles generates go files content
 func (svc *Service) GenerateFiles(
-	request *plugin.CodeGeneratorRequest,
+	request *pluginpb.CodeGeneratorRequest,
 	messages []*messages.Model,
-) []*plugin.CodeGeneratorResponse_File {
-	files := map[string]*plugin.CodeGeneratorResponse_File{}
+) []*pluginpb.CodeGeneratorResponse_File {
+	files := map[string]*pluginpb.CodeGeneratorResponse_File{}
 	messagesByFiles := map[string]*model{}
 
 	for _, message := range messages {
 		if _, ok := files[message.GoFile]; !ok {
 			name := message.GoFile
-			files[message.GoFile] = &plugin.CodeGeneratorResponse_File{
+			files[message.GoFile] = &pluginpb.CodeGeneratorResponse_File{
 				Name: &name,
 			}
 			messagesByFiles[message.GoFile] = newModel(message.GoPackage, message.GoMax)
@@ -27,7 +27,7 @@ func (svc *Service) GenerateFiles(
 
 	templateService := template.GetService()
 
-	result := []*plugin.CodeGeneratorResponse_File{}
+	result := []*pluginpb.CodeGeneratorResponse_File{}
 	for _, file := range files {
 		content := templateService.ExecuteTemplate(template.DefaultGoTemplate, messagesByFiles[file.GetName()])
 		file.Content = &content

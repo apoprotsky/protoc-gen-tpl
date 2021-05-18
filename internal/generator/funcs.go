@@ -8,8 +8,8 @@ import (
 	"github.com/apoprotsky/protoc-gen-tpl/internal/generator/tags"
 	"github.com/apoprotsky/protoc-gen-tpl/internal/generator/types"
 	"github.com/apoprotsky/protoc-gen-tpl/internal/str"
-	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"google.golang.org/protobuf/types/descriptorpb"
+	"google.golang.org/protobuf/types/pluginpb"
 )
 
 func getPrefixFromParameter(parameter string) string {
@@ -23,11 +23,24 @@ func getPrefixFromParameter(parameter string) string {
 	return ""
 }
 
-func genMessagesFromRequest(request *plugin.CodeGeneratorRequest) []*messages.Model {
+func getProtoFileByName(
+	request *pluginpb.CodeGeneratorRequest,
+	name string,
+) *descriptorpb.FileDescriptorProto {
+	protoFiles := request.GetProtoFile()
+	for _, protoFile := range protoFiles {
+		if protoFile.GetName() == name {
+			return protoFile
+		}
+	}
+	return nil
+}
+
+func genMessagesFromRequest(request *pluginpb.CodeGeneratorRequest) []*messages.Model {
 	messages := []*messages.Model{}
 	prefix := getPrefixFromParameter(request.GetParameter())
-	for index, filename := range request.FileToGenerate {
-		protoFile := request.ProtoFile[index]
+	for _, filename := range request.GetFileToGenerate() {
+		protoFile := getProtoFileByName(request, filename)
 		filename = str.LastPart(filename, "/")
 		// go
 		goDir := getGoFileDirectory(protoFile, prefix)
@@ -40,7 +53,7 @@ func genMessagesFromRequest(request *plugin.CodeGeneratorRequest) []*messages.Mo
 		// php
 		phpDir := getPhpFileDirectory(protoFile, prefix)
 		phpPackage := getPhpPackageName(protoFile)
-		// Get messages information
+		//
 		protoMessages := protoFile.MessageType
 		for _, protoMessage := range protoMessages {
 			genMessage := genMessageFromProtoMessage(protoMessage)
