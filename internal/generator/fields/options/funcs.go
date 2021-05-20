@@ -9,6 +9,7 @@ import (
 
 var matchOption = regexp.MustCompile("^(\\d+): \"(.*)\"$")
 
+// New creates Model from option string
 func New(option string) *Model {
 	matches := matchOption.FindStringSubmatch(option)
 	if len(matches) != 3 {

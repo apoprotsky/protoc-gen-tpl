@@ -17,7 +17,7 @@ const (
 	PhpString Type = "string"
 )
 
-var PhpTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
+var phpTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
 	descriptorpb.FieldDescriptorProto_TYPE_DOUBLE:   PhpDouble,
 	descriptorpb.FieldDescriptorProto_TYPE_FLOAT:    PhpDouble,
 	descriptorpb.FieldDescriptorProto_TYPE_INT64:    PhpInt,
@@ -37,7 +37,7 @@ var PhpTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
 
 // GetPhpType returns PHP type by protobuf type
 func GetPhpType(fieldType descriptorpb.FieldDescriptorProto_Type) Type {
-	value, ok := PhpTypes[fieldType]
+	value, ok := phpTypes[fieldType]
 	if !ok {
 		println("php: unknown or unsupported field type: " + fieldType.String())
 		os.Exit(1)
