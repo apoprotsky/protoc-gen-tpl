@@ -4,7 +4,7 @@
 
 ## Overview
 
-`protoc-gen-tpl` is a plugin for protobuf compilator (`protoc`) which allows to generate files using custom templates and rules.
+`protoc-gen-tpl` is a plugin for protobuf compiler (`protoc`) which allows to generate files using custom templates and rules.
 
 See in [checklist](#checklist) implemented and planned features.
 

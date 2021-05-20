@@ -53,7 +53,7 @@ func genFieldFromProtoField(protoField *descriptorpb.FieldDescriptorProto) *fiel
 	genField.GoTags = append(genField.GoTags, &tags.Model{Name: "json", Value: protoField.GetJsonName()})
 	protoOptions := protoField.GetOptions()
 	if protoOptions != nil {
-		optionsStrings := strings.Split(prototext.MarshalOptions{Multiline: true, Indent: ""}.Format(protoOptions), "\n")
+		optionsStrings := strings.Split(prototext.MarshalOptions{Multiline: true}.Format(protoOptions), "\n")
 		for _, optionString := range optionsStrings {
 			if optionString == "" {
 				continue

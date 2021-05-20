@@ -7,7 +7,7 @@ import (
 	"github.com/apoprotsky/protoc-gen-tpl/internal/registry"
 )
 
-var matchOption = regexp.MustCompile("^(\\d+): \"(.*)\"$")
+var matchOption = regexp.MustCompile("^(\\d+):\\s+\"(.*)\"$")
 
 // New creates Model from option string
 func New(option string) *Model {
