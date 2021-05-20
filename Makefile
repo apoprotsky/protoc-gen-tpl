@@ -26,6 +26,7 @@ run:
 	@rm -rf examples/out
 	@mkdir examples/out
 	@protoc \
+		--proto_path=examples/proto \
 		--tpl_out=examples/out \
 		--tpl_opt=prefix=github.com/apoprotsky/protoc-gen-tpl/examples/ \
 		--tpl_opt=lang=go \

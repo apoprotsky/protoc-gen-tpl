@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package tags;
+
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FieldOptions {
+    string db = 50001;
+}

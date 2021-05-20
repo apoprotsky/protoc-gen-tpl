@@ -4,19 +4,24 @@ package API.Users;
 
 option go_package = "github.com/apoprotsky/protoc-gen-tpl/examples/api/users";
 
+import "google/protobuf/descriptor.proto";
+import "tags/validate.proto";
+import "tags/db.proto";
+
 message User {
     uint32 id = 1;
-    string email = 2;
+    string username = 2;
     repeated uint32 groups = 3;
 }
 
 message UsersPostRequest {
-    string email = 1;
-    string password = 2;
+    string username = 1;
+    string email = 2 [(tags.validate)="required,email", (tags.db)="email"];
+    string password = 3;
 }
 
 message UsersPostResponse {
     uint32 id = 1;
-    string email = 2;
+    string username = 2;
     repeated uint32 groups = 3;
 }

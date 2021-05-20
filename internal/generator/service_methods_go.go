@@ -7,7 +7,7 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-func getGoFileDirectory(protoFile *descriptorpb.FileDescriptorProto, prefix string) string {
+func (svc *Service) getGoFileDirectory(protoFile *descriptorpb.FileDescriptorProto, prefix string) string {
 	path := strings.Split(protoFile.GetOptions().GetGoPackage(), ";")[0]
 	path = strings.TrimPrefix(path, prefix)
 	path = strings.TrimPrefix(path, "/")
@@ -17,7 +17,7 @@ func getGoFileDirectory(protoFile *descriptorpb.FileDescriptorProto, prefix stri
 	return path
 }
 
-func getGoPackageName(protoFile *descriptorpb.FileDescriptorProto) string {
+func (svc *Service) getGoPackageName(protoFile *descriptorpb.FileDescriptorProto) string {
 	tmp := strings.Split(protoFile.GetOptions().GetGoPackage(), ";")
 	if len(tmp) > 1 {
 		return tmp[1]

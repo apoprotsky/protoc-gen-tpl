@@ -52,9 +52,9 @@ Option `lang` designates which languages to use for output files. This option ca
 
 - [x] Generate `go` files from `proto` files
 - [x] Generate structs types from messages
-- [ ] Generate struct fields tags
+- [x] Generate struct fields tags
   - [x] Generate json tags
-  - [ ] Generate custom tags
+  - [x] Generate custom tags
 - [ ] Generate types from enumerations
 - [ ] Generate constants from enumerations
 - [ ] Supported struct fields types:
