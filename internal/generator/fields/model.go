@@ -7,13 +7,14 @@ import (
 
 // Model of field
 type Model struct {
-	GoName         string
-	GoIsArray      bool
-	GoIsPointer    bool
-	GoType         types.Type
-	GoTags         []*tags.Model
-	TypescriptName string
-	TypescriptType types.Type
-	PhpName        string
-	PhpType        types.Type
+	GoName            string
+	GoIsArray         bool
+	GoIsPointer       bool
+	GoType            types.Type
+	GoTags            []*tags.Model
+	TypescriptName    string
+	TypescriptType    types.Type
+	TypescriptIsArray bool
+	PhpName           string
+	PhpType           types.Type
 }

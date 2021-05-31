@@ -70,7 +70,7 @@ Option `lang` designates which languages to use for output files. This option ca
 - [ ] Generate enumerations
 - [ ] Supported interface fields types:
   - [x] Scalar types (string, boolean, number, bigint)
-  - [ ] Arrays
+  - [x] Arrays
   - [ ] Message type
   - [ ] Enumeration type
 

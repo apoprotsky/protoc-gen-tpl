@@ -40,15 +40,16 @@ func genFieldsFromProtoFields(protoFields []*descriptorpb.FieldDescriptorProto) 
 
 func genFieldFromProtoField(protoField *descriptorpb.FieldDescriptorProto) *fields.Model {
 	genField := fields.Model{
-		GoName:         str.ToUpperCamelCase(protoField.GetName()),
-		GoIsArray:      protoField.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
-		GoIsPointer:    protoField.GetType() == descriptorpb.FieldDescriptorProto_TYPE_MESSAGE,
-		GoType:         types.GetGoType(protoField.GetType()),
-		GoTags:         []*tags.Model{},
-		TypescriptName: str.ToLowerCamelCase(protoField.GetName()),
-		TypescriptType: types.GetTypescriptType(protoField.GetType()),
-		PhpName:        str.ToLowerCamelCase(protoField.GetName()),
-		PhpType:        types.GetPhpType(protoField.GetType()),
+		GoName:            str.ToUpperCamelCase(protoField.GetName()),
+		GoIsArray:         protoField.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
+		GoIsPointer:       protoField.GetType() == descriptorpb.FieldDescriptorProto_TYPE_MESSAGE,
+		GoType:            types.GetGoType(protoField.GetType()),
+		GoTags:            []*tags.Model{},
+		TypescriptName:    str.ToLowerCamelCase(protoField.GetName()),
+		TypescriptType:    types.GetTypescriptType(protoField.GetType()),
+		TypescriptIsArray: protoField.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
+		PhpName:           str.ToLowerCamelCase(protoField.GetName()),
+		PhpType:           types.GetPhpType(protoField.GetType()),
 	}
 	genField.GoTags = append(genField.GoTags, &tags.Model{Name: "json", Value: protoField.GetJsonName()})
 	protoOptions := protoField.GetOptions()
