@@ -9,6 +9,7 @@ export interface {{ $message.Name }} {
   {{ $field.TypescriptName }}?: {{/**/}}
   {{- /* Field type */}}
   {{- $field.TypescriptType }}
+  {{- if $field.TypescriptIsArray }}[]{{ end }}
 {{- end }}
 }
 {{- end }}
