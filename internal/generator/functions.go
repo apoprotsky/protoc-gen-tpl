@@ -31,8 +31,8 @@ func genFieldsFromProtoFields(protoFields []*descriptorpb.FieldDescriptorProto) 
 	for _, protoField := range protoFields {
 		genField := genFieldFromProtoField(protoField)
 		genFields = append(genFields, genField)
-		if len(genField.GoName) > goMax {
-			goMax = len(genField.GoName)
+		if len(genField.GoName) > goMaxName {
+			goMaxName = len(genField.GoName)
 		}
 	}
 	return genFields, goMaxName
