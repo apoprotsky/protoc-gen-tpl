@@ -7,7 +7,7 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-func (svc *Service) getTypescriptFileDirectory(protoFile *descriptorpb.FileDescriptorProto, prefix string) string {
+func (svc *Service) getTypescriptFileDirectory(protoFile *descriptorpb.FileDescriptorProto) string {
 	return strings.ReplaceAll(protoFile.GetPackage(), ".", "/") + "/"
 }
 

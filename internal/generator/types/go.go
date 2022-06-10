@@ -2,6 +2,7 @@ package types
 
 import (
 	"os"
+	"strings"
 
 	"google.golang.org/protobuf/types/descriptorpb"
 )
@@ -23,6 +24,8 @@ const (
 	GoBool Type = "bool"
 	// GoString string type
 	GoString Type = "string"
+	// GoMessage message type
+	GoMessage Type = "message"
 )
 
 var goTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
@@ -41,6 +44,7 @@ var goTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
 	descriptorpb.FieldDescriptorProto_TYPE_BOOL:     GoBool,
 	descriptorpb.FieldDescriptorProto_TYPE_STRING:   GoString,
 	descriptorpb.FieldDescriptorProto_TYPE_BYTES:    GoString,
+	descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:  GoMessage,
 }
 
 // GetGoType returns golang type by protobuf type
@@ -51,4 +55,20 @@ func GetGoType(fieldType descriptorpb.FieldDescriptorProto_Type) Type {
 		os.Exit(1)
 	}
 	return value
+}
+
+func GetAliasFromGoType(goType string) string {
+	parts := strings.Split(goType, ".")
+	alias := strings.Join(parts[:len(parts)-1], "_")
+	return strings.ToLower(alias)
+}
+
+func GoTypeToAliased(goType string) Type {
+	parts := strings.Split(goType, ".")
+	if len(parts) == 1 {
+		return Type(goType)
+	}
+	alias := strings.Join(parts[:len(parts)-1], "_")
+	alias = strings.ToLower(alias)
+	return Type(alias + "." + parts[len(parts)-1])
 }

@@ -3,6 +3,7 @@ package generator
 import (
 	gs "github.com/apoprotsky/go-services"
 	"github.com/apoprotsky/protoc-gen-tpl/internal/registry"
+	"google.golang.org/protobuf/types/pluginpb"
 )
 
 // Service struct
@@ -11,6 +12,8 @@ type Service struct {
 	typescript      bool
 	php             bool
 	registryService *registry.Service
+	request         *pluginpb.CodeGeneratorRequest
+	prefix          string
 }
 
 // GoService initializes service

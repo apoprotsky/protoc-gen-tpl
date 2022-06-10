@@ -3,11 +3,12 @@ package typescript
 import "github.com/apoprotsky/protoc-gen-tpl/internal/generator/messages"
 
 type model struct {
-	Messages []*messages.Model
+	TypescriptImports []string
+	Messages          []*messages.Model
 }
 
-func newModel() *model {
+func newModel(message *messages.Model) *model {
 	return &model{
-		Messages: []*messages.Model{},
+		TypescriptImports: message.TypescriptImports,
 	}
 }

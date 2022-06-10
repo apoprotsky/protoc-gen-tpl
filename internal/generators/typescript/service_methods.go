@@ -20,7 +20,7 @@ func (svc *Service) GenerateFiles(
 			files[message.TypescriptFile] = &pluginpb.CodeGeneratorResponse_File{
 				Name: &name,
 			}
-			messagesByFiles[message.TypescriptFile] = newModel()
+			messagesByFiles[message.TypescriptFile] = newModel(message)
 		}
 		messagesByFiles[message.TypescriptFile].addMessage(message)
 	}

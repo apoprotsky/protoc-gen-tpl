@@ -8,12 +8,14 @@ import (
 // Service struct
 type Service struct {
 	filesByName        map[string]*descriptorpb.FileDescriptorProto
+	filesByPackage     map[string]*descriptorpb.FileDescriptorProto
 	extensionsByNumber map[int32]*descriptorpb.FieldDescriptorProto
 }
 
 // GoService initializes service
 func (svc *Service) GoService() {
 	svc.filesByName = map[string]*descriptorpb.FileDescriptorProto{}
+	svc.filesByPackage = map[string]*descriptorpb.FileDescriptorProto{}
 	svc.extensionsByNumber = map[int32]*descriptorpb.FieldDescriptorProto{}
 }
 

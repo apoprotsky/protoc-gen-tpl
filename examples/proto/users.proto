@@ -1,17 +1,23 @@
 syntax = "proto3";
 
-package API.Users;
+package api.users;
 
 option go_package = "github.com/apoprotsky/protoc-gen-tpl/examples/api/users";
 
 import "google/protobuf/descriptor.proto";
 import "tags/validate.proto";
 import "tags/db.proto";
+import "groups.proto";
 
 message User {
     uint32 id = 1;
     string username = 2;
-    repeated uint32 groups = 3;
+    string password = 3 [json_name="-"];
+    repeated api.groups.Group groups = 4;
+}
+
+message UsersGetResponse {
+    repeated User users = 1;
 }
 
 message UsersPostRequest {
@@ -23,5 +29,5 @@ message UsersPostRequest {
 message UsersPostResponse {
     uint32 id = 1;
     string username = 2;
-    repeated uint32 groups = 3;
+    repeated api.groups.Group groups = 3;
 }

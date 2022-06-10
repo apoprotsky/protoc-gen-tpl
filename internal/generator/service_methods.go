@@ -64,20 +64,20 @@ func (svc *Service) getLanguages(request *pluginpb.CodeGeneratorRequest) {
 	}
 }
 
-func (svc *Service) getPrefix(request *pluginpb.CodeGeneratorRequest) string {
+func (svc *Service) setRequest(request *pluginpb.CodeGeneratorRequest) {
+	svc.request = request
 	options := strings.Split(request.GetParameter(), ",")
 	for _, option := range options {
 		tmp := strings.Split(option, "=")
 		if tmp[0] == "prefix" {
-			return tmp[1]
+			svc.prefix = tmp[1]
 		}
 	}
-	return ""
 }
 
 func (svc *Service) genMessages(request *pluginpb.CodeGeneratorRequest) []*messages.Model {
 	messages := []*messages.Model{}
-	prefix := svc.getPrefix(request)
+	svc.setRequest(request)
 	for _, filename := range request.GetFileToGenerate() {
 		protoFile := svc.registryService.GetFileByName(filename)
 		if protoFile == nil {
@@ -85,20 +85,21 @@ func (svc *Service) genMessages(request *pluginpb.CodeGeneratorRequest) []*messa
 		}
 		filename = str.LastPart(filename, "/")
 		// go
-		goDir := svc.getGoFileDirectory(protoFile, prefix)
+		goDir := svc.getGoFileDirectory(protoFile, svc.prefix)
 		goFile := goDir + strings.Replace(filename, ".proto", ".go", -1)
 		goPackage := svc.getGoPackageName(protoFile)
+		goFillPackagePrefix := svc.getGoFullPackagePrefix(protoFile)
 		// typescript
-		typescriptDir := svc.getTypescriptFileDirectory(protoFile, prefix)
+		typescriptDir := svc.getTypescriptFileDirectory(protoFile)
 		typescriptFile := typescriptDir + strings.Replace(filename, ".proto", ".ts", -1)
 		typescriptPackage := svc.getTypescriptPackageName(protoFile)
 		// php
-		phpDir := svc.getPhpFileDirectory(protoFile, prefix)
+		phpDir := svc.getPhpFileDirectory(protoFile, svc.prefix)
 		phpPackage := svc.getPhpPackageName(protoFile)
 		//
 		protoMessages := protoFile.MessageType
 		for _, protoMessage := range protoMessages {
-			genMessage := genMessageFromProtoMessage(protoMessage)
+			genMessage := genMessageFromProtoMessage(protoMessage, goFillPackagePrefix)
 			genMessage.ProtoFile = protoFile.GetName()
 			genMessage.GoFile = goFile
 			genMessage.GoPackage = goPackage

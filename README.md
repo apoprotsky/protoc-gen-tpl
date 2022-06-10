@@ -60,7 +60,7 @@ Option `lang` designates which languages to use for output files. This option ca
 - [ ] Supported struct fields types:
   - [x] Scalar types (string, numbers)
   - [x] Arrays
-  - [ ] Message type
+  - [x] Message type
   - [ ] Enumeration type
 
 ### Typescript
@@ -71,7 +71,7 @@ Option `lang` designates which languages to use for output files. This option ca
 - [ ] Supported interface fields types:
   - [x] Scalar types (string, boolean, number, bigint)
   - [x] Arrays
-  - [ ] Message type
+  - [x] Message type
   - [ ] Enumeration type
 
 ### PHP

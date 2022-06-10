@@ -20,7 +20,7 @@ func (svc *Service) GenerateFiles(
 			files[message.GoFile] = &pluginpb.CodeGeneratorResponse_File{
 				Name: &name,
 			}
-			messagesByFiles[message.GoFile] = newModel(message.GoPackage, message.GoMax)
+			messagesByFiles[message.GoFile] = newModel(message)
 		}
 		messagesByFiles[message.GoFile].addMessage(message)
 	}
@@ -29,7 +29,9 @@ func (svc *Service) GenerateFiles(
 
 	result := []*pluginpb.CodeGeneratorResponse_File{}
 	for _, file := range files {
-		content := templateService.ExecuteTemplate(template.DefaultGoTemplate, messagesByFiles[file.GetName()])
+		name := file.GetName()
+		messagesByFiles[name].optimizeImports()
+		content := templateService.ExecuteTemplate(template.DefaultGoTemplate, messagesByFiles[name])
 		file.Content = &content
 		result = append(result, file)
 	}

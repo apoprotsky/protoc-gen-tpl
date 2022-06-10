@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package API.Groups;
+package api.groups;
 
 option go_package = "github.com/apoprotsky/protoc-gen-tpl/examples/api/groups";
 

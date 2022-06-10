@@ -4,14 +4,17 @@ import "github.com/apoprotsky/protoc-gen-tpl/internal/generator/messages"
 
 type model struct {
 	GoPackage string
-	GoMax     int
+	GoMaxName int
+	GoMaxType int
+	GoImports []string
 	Messages  []*messages.Model
 }
 
-func newModel(goPackage string, goMax int) *model {
+func newModel(message *messages.Model) *model {
 	return &model{
-		GoPackage: goPackage,
-		GoMax:     goMax,
-		Messages:  []*messages.Model{},
+		GoPackage: message.GoPackage,
+		GoMaxName: message.GoMaxName,
+		GoMaxType: message.GoMaxType,
+		GoImports: message.GoImports,
 	}
 }

@@ -15,6 +15,8 @@ const (
 	PhpBoolean Type = "boolean"
 	// PhpString string type
 	PhpString Type = "string"
+	// PhpMessage message type
+	PhpMessage = "message"
 )
 
 var phpTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
@@ -33,6 +35,7 @@ var phpTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
 	descriptorpb.FieldDescriptorProto_TYPE_BOOL:     PhpBoolean,
 	descriptorpb.FieldDescriptorProto_TYPE_STRING:   PhpString,
 	descriptorpb.FieldDescriptorProto_TYPE_BYTES:    PhpString,
+	descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:  PhpMessage,
 }
 
 // GetPhpType returns PHP type by protobuf type

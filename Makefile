@@ -23,11 +23,11 @@ link:
 	@ln -s $$(pwd)/protoc-gen-tpl /usr/local/bin/
 
 run:
-	@rm -rf examples/out
-	@mkdir examples/out
+	@rm -rf examples/api
+	@mkdir examples/api
 	@protoc \
 		--proto_path=examples/proto \
-		--tpl_out=examples/out \
+		--tpl_out=examples \
 		--tpl_opt=prefix=github.com/apoprotsky/protoc-gen-tpl/examples/ \
 		--tpl_opt=lang=go \
 		--tpl_opt=lang=ts \

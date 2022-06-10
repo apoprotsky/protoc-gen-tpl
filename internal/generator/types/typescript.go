@@ -17,6 +17,8 @@ const (
 	TypescriptString Type = "string"
 	// TypescriptEnum enum type
 	TypescriptEnum Type = "enum"
+	// TypescriptMessage message type
+	TypescriptMessage Type = "message"
 )
 
 var typescriptTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
@@ -36,6 +38,7 @@ var typescriptTypes = map[descriptorpb.FieldDescriptorProto_Type]Type{
 	descriptorpb.FieldDescriptorProto_TYPE_STRING:   TypescriptString,
 	descriptorpb.FieldDescriptorProto_TYPE_BYTES:    TypescriptString,
 	descriptorpb.FieldDescriptorProto_TYPE_ENUM:     TypescriptEnum,
+	descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:  TypescriptMessage,
 }
 
 // GetTypescriptType returns typescript type by protobuf type

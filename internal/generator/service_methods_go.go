@@ -24,3 +24,7 @@ func (svc *Service) getGoPackageName(protoFile *descriptorpb.FileDescriptorProto
 	}
 	return str.LastPart(tmp[0], "/")
 }
+
+func (svc *Service) getGoFullPackagePrefix(protoFile *descriptorpb.FileDescriptorProto) string {
+	return protoFile.GetPackage() + "."
+}
