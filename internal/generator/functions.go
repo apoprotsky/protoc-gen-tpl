@@ -61,16 +61,25 @@ func genFieldFromProtoField(protoField *descriptorpb.FieldDescriptorProto, goPac
 	field *fields.Model, goImports []string, typescriptImports []string) {
 	var genGoImports []string
 	var genTypescriptImports []string
+	goIsPointer := false
 	goFieldType := types.GetGoType(protoField.GetType())
+	goAlias := ""
 	typescriptFieldType := types.GetTypescriptType(protoField.GetType())
 	phpFieldType := types.GetPhpType(protoField.GetType())
 	if goFieldType == "message" {
 		typeName := protoField.GetTypeName()
 		typeName = typeName[1:]
 		typeName = strings.TrimPrefix(typeName, goPackage)
-		goFieldType = types.GoTypeToAliased(typeName)
-		goAlias := types.GetAliasFromGoType(typeName)
-		typescriptFieldType = types.Type(str.LastPart(typeName, "."))
+		if typeName == "google.protobuf.Timestamp" {
+			goFieldType = "time.Time"
+			genGoImports = append(genGoImports, "\"time\"")
+			typescriptFieldType = "string"
+		} else {
+			goIsPointer = true
+			goFieldType = types.GoTypeToAliased(typeName)
+			goAlias = types.GetAliasFromGoType(typeName)
+			typescriptFieldType = types.Type(str.LastPart(typeName, "."))
+		}
 		if len(goAlias) > 0 {
 			registryService := registry.GetService()
 			generatorService := GetService()
@@ -91,7 +100,7 @@ func genFieldFromProtoField(protoField *descriptorpb.FieldDescriptorProto, goPac
 	genField := fields.Model{
 		GoName:            str.ToUpperCamelCase(protoField.GetName()),
 		GoIsArray:         protoField.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
-		GoIsPointer:       protoField.GetType() == descriptorpb.FieldDescriptorProto_TYPE_MESSAGE,
+		GoIsPointer:       goIsPointer,
 		GoType:            goFieldType,
 		GoTags:            []*tags.Model{},
 		TypescriptName:    str.ToLowerCamelCase(protoField.GetName()),
