@@ -29,6 +29,8 @@ func (svc *Service) GenerateFiles(
 
 	result := []*pluginpb.CodeGeneratorResponse_File{}
 	for _, file := range files {
+		name := file.GetName()
+		messagesByFiles[name].optimizeImports()
 		content := templateService.ExecuteTemplate(
 			template.DefaultTypescriptTemplate,
 			messagesByFiles[file.GetName()],
