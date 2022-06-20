@@ -1,6 +1,7 @@
 package generator
 
 import (
+	"path/filepath"
 	"sort"
 	"strings"
 
@@ -88,7 +89,7 @@ func genFieldFromProtoField(protoField *descriptorpb.FieldDescriptorProto, goPac
 				genGoImports,
 				goAlias+" \""+file.GetOptions().GetGoPackage()+"\"",
 			)
-			genTypescriptImport := generatorService.getTypescriptFileDirectory(file) + file.GetName()
+			genTypescriptImport := generatorService.getTypescriptFileDirectory(file) + filepath.Base(file.GetName())
 			genTypescriptImport = strings.Replace(genTypescriptImport, ".proto", "", -1)
 			genTypescriptImports = append(
 				genTypescriptImports,
