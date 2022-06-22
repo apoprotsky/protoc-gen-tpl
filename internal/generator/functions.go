@@ -79,7 +79,11 @@ func genFieldFromProtoField(protoField *descriptorpb.FieldDescriptorProto, goPac
 			goIsPointer = true
 			goFieldType = types.GoTypeToAliased(typeName)
 			goAlias = types.GetAliasFromGoType(typeName)
-			typescriptFieldType = types.Type(str.LastPart(typeName, "."))
+			if len(goAlias) > 0 {
+				typescriptFieldType = types.Type(goAlias + "_" + str.LastPart(typeName, "."))
+			} else {
+				typescriptFieldType = types.Type(str.LastPart(typeName, "."))
+			}
 		}
 		if len(goAlias) > 0 {
 			registryService := registry.GetService()
@@ -93,7 +97,7 @@ func genFieldFromProtoField(protoField *descriptorpb.FieldDescriptorProto, goPac
 			genTypescriptImport = strings.Replace(genTypescriptImport, ".proto", "", -1)
 			genTypescriptImports = append(
 				genTypescriptImports,
-				"import { "+string(typescriptFieldType)+" } from '"+genTypescriptImport+"'",
+				"import { "+str.LastPart(typeName, ".")+" as "+string(typescriptFieldType)+" } from '"+genTypescriptImport+"'",
 			)
 		}
 		phpFieldType = types.Type(typeName)
